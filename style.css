@@ -1,0 +1,65 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html, body, main {
+    height: 100%;
+    width: 100%;
+}
+
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Isso centralizará o formulário verticalmente na página */
+}
+
+/* Estilo para o input de arquivo */
+#video {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Estilo para o botão de envio */
+input[type="submit"] {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.audioPlayer{
+    width: 100%;
+    height: 20px;
+    background-color: aqua;
+}
+
+.aud{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 32px;
+    background-color: black;
+    align-items: center;
+}
+
+.imgLogo{
+    width: 32px;
+    height: 32px;
+}
