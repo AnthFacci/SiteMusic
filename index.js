@@ -6,8 +6,14 @@ document.addEventListener('DOMContentLoaded', function() {
   const btnMusica = document.getElementById('btnMusica');
   const section = document.getElementById('main');
   const footer = document.getElementById('foot');
+  const tempoTotal = document.getElementById('hr');
+  const tempoAtual = document.getElementById('currentTime');
+  const spanTotal = document.getElementById('total');
+  const controleDeslizante = document.getElementById('controleDeslizante');
+  const volume = document.getElementById('volume');
   let indice = 0;
   let musicaAtual = null; 
+  let imagemAtual = 1;
 
   // FUNCTIONS
   function playMusic(audioElement) {
@@ -20,6 +26,33 @@ document.addEventListener('DOMContentLoaded', function() {
     audioElement.pause();
     btnPlay.dataset.status = '0'; //Pause
   }
+
+  function trocarImagem(imagemAtual) {
+    console.log("função trocar chamada")
+    if (imagemAtual === 1) {
+        const img = document.getElementById('pP');
+        img.src = "pause.png";
+        console.log(imagemAtual);
+    } else if(imagemAtual === 2) {
+        const img = document.getElementById('pP');
+        img.src = "play-button.png";
+    }
+}
+
+function currentMusica(totalTemp, atualTemp) {
+  if (atualTemp && totalTemp) {
+    const porcentagem = (atualTemp / totalTemp) * 100;
+    const larguraDaBarra = (porcentagem * tempoTotal.offsetWidth) / 100;
+    const posicaoInicial = 68;
+    const posicaoFinal = larguraDaBarra + posicaoInicial;
+    tempoAtual.style.left = posicaoFinal + 'px';
+  }
+}
+
+function vol(audioElement){
+  var volume = document.getElementById('controleDeslizante').value;
+  audioElement.volume = volume;
+}
 
   // ADICIONAR MÚSICA NA SECTION
   btnMusica.addEventListener('click', function(e) {
@@ -39,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
       imgAudio.className = "imgLogo";
       imgAudio.src = "/headset.png";
       divAudio.className = "aud";
+      playButton.className = "playBtnM";
       divAudio.appendChild(audioElement);
       divAudio.appendChild(imgAudio);
       divAudio.appendChild(playButton);
@@ -64,6 +98,15 @@ document.addEventListener('DOMContentLoaded', function() {
             playMusic(audioElement);
           }
         }
+
+        audioElement.addEventListener('timeupdate', function(){
+          const totalTemp = audioElement.duration;
+          spanTotal.textContent = totalTemp.toFixed(2);
+          const atualTemp = audioElement.currentTime;
+          currentMusica(totalTemp,atualTemp);
+          vol(audioElement);
+        })
+
       });
     } else {
       alert('Por favor, selecione um arquivo de áudio.');
@@ -75,13 +118,31 @@ document.addEventListener('DOMContentLoaded', function() {
     if (musicaAtual) {
       console.log(musicaAtual)
       if (btnPlay.dataset.status === '1') {
+        trocarImagem(imagemAtual);
+        imagemAtual = 2;
         pauseMusic(musicaAtual);
-      } else {
+        btnPlay.dataset.status = '0'
+      } else if(btnPlay.dataset.status === '0'){
+        trocarImagem(imagemAtual);
+        imagemAtual = 1;
         playMusic(musicaAtual);
-        btnPlay.dataset.status = "2";
+        btnPlay.dataset.status = "1";
       }
     }
 });
+
+//ANIMATION VOLUME
+
+volume.addEventListener('mouseenter', function () {
+  controleDeslizante.style.display = 'block';
+});
+
+volume.addEventListener('mouseleave', function () {
+  setTimeout(function () {
+      controleDeslizante.style.display = 'none';
+      controleDeslizante.style.right = '200px';
+  }, 5000); 
+});;
 
 
 
