@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const spanTotal = document.getElementById('total');
   const controleDeslizante = document.getElementById('controleDeslizante');
   const volume = document.getElementById('volume');
+  const loopBtn = document.getElementById('btnLoop');
+  const imgLoop = document.getElementById('loop');
   let indice = 0;
   let musicaAtual = null; 
   let imagemAtual = 1;
@@ -53,6 +55,36 @@ function vol(audioElement){
   var volume = document.getElementById('controleDeslizante').value;
   audioElement.volume = volume;
 }
+
+function trocarLoop(){
+  if(imgLoop.dataset.img === "1"){
+    imgLoop.src = "loop-ver.png";
+    imgLoop.dataset.img = "0";
+    console.log('Switch');
+  }else if(imgLoop.dataset.img === "0"){
+    imgLoop.src = "loop.png";
+    imgLoop.dataset.img = "1";
+    console.log('Switch');
+  }
+}
+
+function loop(audioElement){
+  if(audioElement){
+    if(loopBtn.dataset.loop === "false"){
+    audioElement.loop = true;
+    loopBtn.dataset.loop = "true";
+    trocarLoop();
+    console.log('Loop ativado!' + loopBtn.dataset.loop)
+   }
+   else if(loopBtn.dataset.loop === "true"){
+    audioElement.loop = false;
+    loopBtn.dataset.loop = "false";
+    trocarLoop();
+    console.log('Loop desativado' + loopBtn.dataset.loop)
+   }
+ }
+}
+
 
   // ADICIONAR MÚSICA NA SECTION
   btnMusica.addEventListener('click', function(e) {
@@ -106,8 +138,13 @@ function vol(audioElement){
           currentMusica(totalTemp,atualTemp);
           vol(audioElement);
         })
+        
+        loopBtn.addEventListener('click', function(){
+              loop(audioElement);
+        });
 
       });
+      
     } else {
       alert('Por favor, selecione um arquivo de áudio.');
     }

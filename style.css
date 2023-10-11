@@ -124,6 +124,7 @@ section p{
     bottom: 41px;
     left: 68px;
     z-index: 1;
+    cursor: pointer;
 }
 
 #currentTime{
@@ -135,6 +136,7 @@ section p{
     bottom: 38px;
     left: 68px;
     z-index: 2;
+    cursor: pointer;
 }
 
 #total{
@@ -159,7 +161,7 @@ section p{
 
 #controleDeslizante{
     position: absolute;
-    right: 222px;
+    right: 200px;
     bottom: 33px;
     display: none;
     transition: 0.5s;
@@ -169,3 +171,22 @@ section p{
 #volume:hover + #controleDeslizante{
     display: block;
 }
+
+#loop{
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    right: 450px;
+    bottom: 27px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#loop:hover{
+    transform: scale(1.1); 
+
+}
+
+#loop:after{
+    background-color: #e74c3c;
+  }
