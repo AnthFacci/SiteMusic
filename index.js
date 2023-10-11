@@ -110,6 +110,7 @@ function loop(audioElement){
       divAudio.appendChild(playButton);
       indice++;
       let audioElementId = 'musica' + indice;
+      audioElement.dataset.indice = indice;
 
       audioElement.id = audioElementId;
       audioElement.controls = false;
@@ -126,14 +127,17 @@ function loop(audioElement){
         } else {
           if (btnPlay.dataset.status === '1') {
             pauseMusic(audioElement);
+            indice = parseInt(audioElement.dataset.indice);
           } else {
             playMusic(audioElement);
           }
         }
 
         audioElement.addEventListener('timeupdate', function(){
-          const totalTemp = audioElement.duration;
-          spanTotal.textContent = totalTemp.toFixed(2);
+          const totalTemp  = audioElement.duration;
+          const totalMinutes = Math.floor(totalTemp  / 60);
+          const totalSeconds = Math.floor(totalTemp  % 60);
+          spanTotal.textContent = `${totalMinutes}:${totalSeconds}`;
           const atualTemp = audioElement.currentTime;
           currentMusica(totalTemp,atualTemp);
           vol(audioElement);

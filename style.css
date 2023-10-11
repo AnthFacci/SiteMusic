@@ -74,7 +74,7 @@ input[type="submit"]:hover {
     background-color: #E3DCE5;
     align-items: center;
     gap: 10px;
-
+    border-bottom: 2px solid #0D1B2A; 
     border-left: transparent;
     border-radius: 10px;
 }
